@@ -2,37 +2,36 @@
 
 describe('Intial check', () => {
   before(() => {
-    // cy.clearCookies();
-  });
+    // cy.clearCookies()
+  })
   beforeEach(() => {
-    cy.visit('/');
-    cy.createNewTasks(5);
-  });
+    cy.visit('/')
+    cy.createNewTasks(5)
+  })
 
   it('Check the URL, title and header', () => {
-    cy.url().should('include', 'localhost:3000');
-    cy.title().should('eq', 'Redux TodoMVC Example');
-    cy.get('[data-cy=title]').contains('todos').should('be.visible');
-    cy.get('[data-cy=new-todo-input]').as('newToDoInput');
-    cy.get('@newToDoInput').should('have.attr', 'placeholder', 'What needs to be done?');
-    cy.get('@newToDoInput').should('have.value', '');
+    cy.url().should('include', 'localhost:3000')
+    cy.title().should('eq', 'Redux TodoMVC Example')
+    cy.get('[data-cy=title]').contains('todos').should('be.visible')
+    cy.get('[data-cy=new-todo-input]').as('newToDoInput')
+    cy.get('@newToDoInput').should('have.attr', 'placeholder', 'What needs to be done?')
+    cy.get('@newToDoInput').should('have.value', '')
   
   });
 
 
   it('Create new TO-DO list', () => { 
 
-    cy.verifyNewTasks(5);
+    cy.verifyNewTasks(5)
 
   })
 
   it('Change task name', () => { 
     
-    cy.get('[data-cy="todo-item-label"]').as('toDoInput');
+    cy.get('[data-cy="todo-item-label"]').as('toDoInput')
     cy.get('@toDoInput').eq(0).dblclick()
     cy.get('.edit').clear().type('TaskA {enter}')
-    cy.get('[data-cy="todo-list"]').eq(0).should('contain', 'TaskA')
-      .should('not.contain', 'Task1')
+    cy.get('[data-cy="todo-list"]').eq(0).should('contain', 'TaskA').and('not.contain', 'Task1')
 
   })
 
@@ -88,7 +87,7 @@ describe('Intial check', () => {
 
   it('Remove task', () => {
     
-    cy.get('[data-cy="todo-item-label"]').as('toDoInput');
+    cy.get('[data-cy="todo-item-label"]').as('toDoInput')
     cy.get('[data-cy="todo-item-remove"]').should('be.hidden')
     cy.get('[data-cy="todo-item-remove"]').eq(0).invoke('show').click({force:true})
     cy.get('[data-cy="todo-list"]').eq(0).should('not.contain', 'Task1').and('contain', 'Task2')
