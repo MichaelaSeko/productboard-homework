@@ -114,5 +114,7 @@ describe('Intial check', () => {
 
     cy.get('[data-cy="toggle"]').uncheck({multiple:true})
     cy.get('ul li').should('not.have.class', 'completed')
+    
   })
+  
 })
